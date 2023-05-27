@@ -17,7 +17,7 @@ pub struct FileList {
 
 impl FileNotFound {
     pub fn new(uri: String) -> Self {
-        Self { uri: uri }
+        Self { uri }
     }
 }
 
@@ -28,8 +28,7 @@ impl TryFrom<String> for FileList {
         let mut items = Path::new(&format!(".{}", value))
             .read_dir()?
             .filter_map(|f| f.ok())
-            .map(|f| Some(String::from(f.file_name().to_str()?)))
-            .filter_map(|x| x)
+            .filter_map(|f| Some(String::from(f.file_name().to_str()?)))
             .collect::<Vec<String>>();
 
         if value != "/" {
