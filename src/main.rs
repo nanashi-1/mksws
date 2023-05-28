@@ -39,10 +39,7 @@ fn rocket() -> _ {
     rocket::custom(config)
         .mount(
             "/",
-            FileServer::new(
-                ".",
-                Options::DotFiles | Options::Index | Options::NormalizeDirs,
-            ),
+            FileServer::new(".", Options::DotFiles | Options::NormalizeDirs),
         )
         .register("/", catchers![not_found])
 }
